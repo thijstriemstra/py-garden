@@ -13,6 +13,8 @@ Device status is displayed on a small 0.91 inch OLED screen.
 
 Includes a manual mode button to enable/disable the water valve manually.
 
+Time is stored in a battery-powered DS3231 realtime clock.
+
 ### Sensors
 
 | Target | Sensor | Location | Amount |
@@ -25,9 +27,56 @@ Includes a manual mode button to enable/disable the water valve manually.
 | Rain | YL-83 | Outside | 1 |
 
 Readings from the sensors are sent to a MQTT server over WiFi (if available).
-Data and time is stored in a battery-powered DS3231 realtime clock.
 
 ## Wiring
+
+### Lolin32 Lite
+
+| Device | Pin Label | ESP8266 Pin | Type |
+| --- | --- | --- | --- |
+| TCA9548A I2C Expander | SDA | `?` | I2C (address: `0x70`) |
+| TCA9548A I2C Expander | SCL | `?` | I2C (address: `0x70`) |
+| DS3231 Realtime Clock | SDA | `?` | I2C (address: `0x68`,) |
+| DS3231 Realtime Clock | SCL | `?` | I2C (address: `0x68`) |
+| AT24C32 EEPROM on DS3231 | SDA | `?` | I2C (address: `0x57`) |
+| AT24C32 EEPROM on DS3231 | SCL | `?` | I2C (address: `0x57`) |
+| MCP3008 Analog Expander | CLK | `18` | SCK |
+| MCP3008 Analog Expander | DOUT | `19` | MISO |
+| MCP3008 Analog Expander | DIN | `23` | MOSI |
+| MCP3008 Analog Expander | CS | `5` | SS |
+| DS18B20 Temperature Sensors | GPIO | `?` | Digital Input |
+| Single Channel Relay | GPIO | `?` | Digital Output |
+| Manual Run Button | GPIO | `?` | Digital Input |
+| Power Button | GPIO | `?` | Digital Input |
+| Watering Indication LED | GPIO | `?` | Digital Output |
+| Manual Run LED | GPIO | `?` | Digital Output |
+| Network LED | GPIO | `?` | Digital Output |
+| Power LED | GPIO | `?` | Digital Output |
+| Water Flow Sensor | `?` | Analog Input |
+
+### TCA9548A
+
+| Device | Pin Label | TCA9548A Pin | Address |
+| --- | --- | --- | --- |
+| 0.96" OLED Display | SDA | `SD0` | `0x3C` |
+| 0.96" OLED Display | SCL | `SC0` | `0x3C` |
+| BME280 barometer | SDA | `SD1` | `0x77` |
+| BME280 barometer | SCL | `SC1` | `0x77` |
+| BH1750 light sensor | SDA | `SD2` | `0x23` |
+| BH1750 light sensor | SCL | `SC2` | `0x23` |
+
+### MCP3008
+
+| Device | Type | MCP3008 Pin |
+| --- | --- | --- |
+| Capacitive Soil 1 | Analog Input | `0` |
+| Capacitive Soil 2 | Analog Input | `1` |
+| Capacitive Soil 3 | Analog Input | `2` |
+| Capacitive Soil 4 | Analog Input | `3` |
+| Capacitive Soil 5 | Analog Input | `4` |
+| YL-83 Rain Sensor | Analog Input | `5` |
+
+## Old Wiring
 
 | Sensor | ESP32 Pin |
 | --- | --- |

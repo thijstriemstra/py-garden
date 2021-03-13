@@ -5,17 +5,14 @@
 #define WateringTask_h
 
 #include <Arduino.h>
-#include <Thread.h>
 #include <Method.h>
-#include <RtcDS3231.h>
+#include <RTClib.h>
 #include <Preferences.h>
 
 #include <LED.h>
 #include <SolenoidValve.h>
 
-#define countof(a) (sizeof(a) / sizeof(a[0]))
-
-class WateringTask: public Thread {
+class WateringTask {
   public:
     WateringTask(
       long duration,
@@ -33,10 +30,10 @@ class WateringTask: public Thread {
     void start();
     void open();
     void close();
-    RtcDateTime load();
-    void save(RtcDateTime timestamp);
+    DateTime load();
+    void save(DateTime timestamp);
     bool isWatering();
-    bool needsWatering(RtcDateTime now);
+    bool needsWatering(DateTime now);
     bool shouldRun(unsigned long time);
     String getLastRunTime();
 
